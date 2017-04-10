@@ -13,53 +13,88 @@ var typeQuiz = {
         for(i=0; i<typeQuiz.types.length; i++) {
             if(typeQuiz.types[i].typeName == attackerType){
                 attackerTypeObj = typeQuiz.types[i];
-            } else if(typeQuiz.types[i].typeName == defenderType){
+            }
+            if (typeQuiz.types[i].typeName == defenderType){
                 defenderTypeObj = typeQuiz.types[i];
             }
         }
-        console.log(attackerTypeObj.typeName + " " + defenderTypeObj.typeName);
+        console.log("Attacker: " + attackerTypeObj.typeName + " | " + "Defender: " + defenderTypeObj.typeName);
         this.checkAtk(attackerTypeObj, defenderTypeObj);
     },
     checkAtk: function(attackerType, defenderType) {
+        gotOneRight = false;
         for(i=0; i<attackerType.strongAtk.length; i++){
             if(attackerType.strongAtk[i] == defenderType.typeName){
                 console.log(attackerType.typeName + " is super effective against " + defenderType.typeName);
+                gotOneRight = true;
             }
         }
         for(i=0; i<attackerType.weakAtk.length; i++) {
             if(attackerType.weakAtk[i] == defenderType.typeName){
                 console.log(attackerType.typeName + " is not very effective against " + defenderType.typeName);
+                gotOneRight = true;
             }
         }
         for(i=0; i<attackerType.nodmgAtk.length; i++) {
             if(attackerType.nodmgAtk[i] == defenderType.typeName){
                 console.log(attackerType.typeName + " has no effect against " + defenderType.typeName);
+                gotOneRight = true;
             }
         }
+        if(gotOneRight == false) {
+            console.log("I'm sorry, that is incorrect");
+        }
+    },
+    getQuestion: function() {
+        var randomType = Math.floor(Math.random() * (18));
+        var randomTypeObj = this.types[randomType];
+
+        questionNumber = Math.floor(Math.random() * (3));
+        
+        switch(questionNumber) {
+            case 0: 
+                var guess = prompt("What is " + randomTypeObj.typeName + " super effective against?");
+                break;
+            case 1:
+                var guess = prompt("What is " + randomTypeObj.typeName + " not very effective against?");
+                break;
+            default:
+                var guess = prompt("What is " + randomTypeObj.typeName + " not effective at all against?");
+                break;
+        }
+
+
+        //var guess = prompt("What is " + randomTypeObj.typeName + " super effective against?");
+        for(j=0; j<this.types.length; j++){
+            if(this.types[j].typeName == guess) {
+                var guessObj = this.types[j];
+                this.checkAtk(randomTypeObj, guessObj);
+            }
+        }
+        
     }
 
 }
 
 //name, strongAtk, weakAtk, nodmgAtk
-typeQuiz.addType("normal", [], ["rock", "steel"], [], ["ghost"]);
-typeQuiz.addType("fire", ["grass", "ice", "bug", "steel"], ["fire", "water", "rock", "dragon"], []);
-typeQuiz.addType("water", ["fire", "ground", "rock"], ["water", "grass", "dragon"], []);
+typeQuiz.addType("normal", ["nothing"], ["rock", "steel"], ["nothing"], ["ghost"]);
+typeQuiz.addType("fire", ["grass", "ice", "bug", "steel"], ["fire", "water", "rock", "dragon"], ["nothing"]);
+typeQuiz.addType("water", ["fire", "ground", "rock"], ["water", "grass", "dragon"], ["nothing"]);
 typeQuiz.addType("electric", ["water", "flying"], ["electric", "grass", "dragon"], ["ground"]);
-typeQuiz.addType("grass", ["water", "ground", "rock"], ["fire", "grass", "poison", "flying", "bug", "dragon", "steel"], []);
-typeQuiz.addType("ice", ["grass", "ground", "flying", "dragon"], ["fire", "water", "ice", "steel"], []);
+typeQuiz.addType("grass", ["water", "ground", "rock"], ["fire", "grass", "poison", "flying", "bug", "dragon", "steel"], ["nothing"]);
+typeQuiz.addType("ice", ["grass", "ground", "flying", "dragon"], ["fire", "water", "ice", "steel"], ["nothing"]);
 typeQuiz.addType("fighting", ["normal", "ice", "rock", "dark", "steel"], ["poison", "flying", "psychic", "bug", "fairy"], ["ghost"]);
 typeQuiz.addType("posion", ["grass", "fairy"], ["poison", "ground", "rock", "ghost"], ["steel"]);
 typeQuiz.addType("ground", ["fire", "electric", "poison", "rock", "steel"], ["grass", "bug"], ["flying"]);
-typeQuiz.addType("flying", ["grass", "fighting", "bug"], ["electric", "rock", "steel"], []);
+typeQuiz.addType("flying", ["grass", "fighting", "bug"], ["electric", "rock", "steel"], ["nothing"]);
 typeQuiz.addType("psychic", ["fighting", "poison"], ["psychic", "steel"], ["dark"]);
-typeQuiz.addType("bug", ["grass", "psychic", "dark"], ["fire", "fighting", "poison", "flying", "ghost", "steel", "fairy"], []);
-typeQuiz.addType("rock", ["fire", "ice", "flying", "bug"], ["fighting", "ground", "steel"], []);
+typeQuiz.addType("bug", ["grass", "psychic", "dark"], ["fire", "fighting", "poison", "flying", "ghost", "steel", "fairy"], ["nothing"]);
+typeQuiz.addType("rock", ["fire", "ice", "flying", "bug"], ["fighting", "ground", "steel"], ["nothing"]);
 typeQuiz.addType("ghost", ["psychic", "ghost"], ["dark"], ["normal"]);
 typeQuiz.addType("dragon", ["dragon"], ["steel"], ["fairy"]);
-typeQuiz.addType("dark", ["psychic", "ghost"], ["fighting", "dark", "fairy"]);
-typeQuiz.addType("steel", ["ice", "rock", "fairy"], ["fire", "water", "electric", "steel"], []);
-typeQuiz.addType("fairy", ["fighting", "dragon", "dark"], ["fire", "poison", "steel"], []);
+typeQuiz.addType("dark", ["psychic", "ghost"], ["fighting", "dark", "fairy"], ["nothing"]);
+typeQuiz.addType("steel", ["ice", "rock", "fairy"], ["fire", "water", "electric", "steel"], ["nothing"]);
+typeQuiz.addType("fairy", ["fighting", "dragon", "dark"], ["fire", "poison", "steel"], ["nothing"]);
 
 
-typeQuiz.findTypes("water", "fire");
-typeQuiz.findTypes("fire", "water");
+typeQuiz.getQuestion();
