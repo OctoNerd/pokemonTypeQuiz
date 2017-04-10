@@ -48,8 +48,8 @@ var typeQuiz = {
     getQuestion: function() {
         var randomType = Math.floor(Math.random() * (18));
         var randomTypeObj = this.types[randomType];
-
         questionNumber = Math.floor(Math.random() * (3));
+        var validType = false;
         
         switch(questionNumber) {
             case 0: 
@@ -63,13 +63,15 @@ var typeQuiz = {
                 break;
         }
 
-
-        //var guess = prompt("What is " + randomTypeObj.typeName + " super effective against?");
         for(j=0; j<this.types.length; j++){
             if(this.types[j].typeName == guess) {
                 var guessObj = this.types[j];
                 this.checkAtk(randomTypeObj, guessObj);
+                validType = true;
             }
+        }
+        if(validType == false) {
+            console.log("That is not a valid type");
         }
         
     }
