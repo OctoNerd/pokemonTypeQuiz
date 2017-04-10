@@ -48,7 +48,7 @@ var typeQuiz = {
     getQuestion: function() {
         var randomType = Math.floor(Math.random() * (18));
         var randomTypeObj = this.types[randomType];
-        questionNumber = Math.floor(Math.random() * (3));
+        var questionNumber = Math.floor(Math.random() * (3));
         var validType = false;
         
         switch(questionNumber) {
@@ -97,7 +97,8 @@ typeQuiz.addType("dragon", ["dragon"], ["steel"], ["fairy"]);
 typeQuiz.addType("dark", ["psychic", "ghost"], ["fighting", "dark", "fairy"], ["nothing"]);
 typeQuiz.addType("steel", ["ice", "rock", "fairy"], ["fire", "water", "electric", "steel"], ["nothing"]);
 typeQuiz.addType("fairy", ["fighting", "dragon", "dark"], ["fire", "poison", "steel"], ["nothing"]);
+//to compare against 'empty' arrays
 typeQuiz.addType("nothing", ["nothing"], ["nothing"], ["nothing"]);
 
 
-typeQuiz.getQuestion();
+//typeQuiz.getQuestion();
