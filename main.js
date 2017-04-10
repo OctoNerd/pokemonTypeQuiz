@@ -51,6 +51,14 @@ typeQuiz.addType("fighting", ["normal", "ice", "rock", "dark", "steel"], ["poiso
 typeQuiz.addType("posion", ["grass", "fairy"], ["poison", "ground", "rock", "ghost"], ["steel"]);
 typeQuiz.addType("ground", ["fire", "electric", "poison", "rock", "steel"], ["grass", "bug"], ["flying"]);
 typeQuiz.addType("flying", ["grass", "fighting", "bug"], ["electric", "rock", "steel"], []);
+typeQuiz.addType("psychic", ["fighting", "poison"], ["psychic", "steel"], ["dark"]);
+typeQuiz.addType("bug", ["grass", "psychic", "dark"], ["fire", "fighting", "poison", "flying", "ghost", "steel", "fairy"], []);
+typeQuiz.addType("rock", ["fire", "ice", "flying", "bug"], ["fighting", "ground", "steel"], []);
+typeQuiz.addType("ghost", ["psychic", "ghost"], ["dark"], ["normal"]);
+typeQuiz.addType("dragon", ["dragon"], ["steel"], ["fairy"]);
+typeQuiz.addType("dark", ["psychic", "ghost"], ["fighting", "dark", "fairy"]);
+typeQuiz.addType("steel", ["ice", "rock", "fairy"], ["fire", "water", "electric", "steel"], []);
+typeQuiz.addType("fairy", ["fighting", "dragon", "dark"], ["fire", "poison", "steel"], []);
 
 
 typeQuiz.findTypes("water", "fire");
