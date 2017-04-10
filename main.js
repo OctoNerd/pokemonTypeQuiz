@@ -1,14 +1,11 @@
 var typeQuiz = {
     types: [],
-    addType: function(typeName, strongAtk, weakAtk, strongDef, weakDef, nodmgAtk, nodmgDef) {
+    addType: function(typeName, strongAtk, weakAtk, nodmgAtk) {
         this.types.push({
             typeName: typeName,
             strongAtk: strongAtk,
             weakAtk: weakAtk,
-            strongDef: strongDef,
-            weakDef: weakDef,
             nodmgAtk: nodmgAtk,
-            nodmgDef: nodmgDef
         });
     },
     findTypes: function(attackerType, defenderType) {
@@ -43,8 +40,18 @@ var typeQuiz = {
 
 }
 
-typeQuiz.addType("normal", [], ["rock", "steel"], [], ["fighting"], ["ghost"], ["ghost"]);
-typeQuiz.addType("fire", ["grass", "ice", "bug", "steel"], ["fire", "water", "rock", "dragon"], ["fire", "grass", "ice", "bug", "steel", "fairy"], ["water", "ground", "rock"], [], []);
-typeQuiz.addType("water", ["fire", "ground", "rock"], ["water", "grass", "dragon"], ["fire", "water", "ice", "steel"], ["electric", "grass"], [], []);
+//name, strongAtk, weakAtk, nodmgAtk
+typeQuiz.addType("normal", [], ["rock", "steel"], [], ["ghost"]);
+typeQuiz.addType("fire", ["grass", "ice", "bug", "steel"], ["fire", "water", "rock", "dragon"], []);
+typeQuiz.addType("water", ["fire", "ground", "rock"], ["water", "grass", "dragon"], []);
+typeQuiz.addType("electric", ["water", "flying"], ["electric", "grass", "dragon"], ["ground"]);
+typeQuiz.addType("grass", ["water", "ground", "rock"], ["fire", "grass", "poison", "flying", "bug", "dragon", "steel"], []);
+typeQuiz.addType("ice", ["grass", "ground", "flying", "dragon"], ["fire", "water", "ice", "steel"], []);
+typeQuiz.addType("fighting", ["normal", "ice", "rock", "dark", "steel"], ["poison", "flying", "psychic", "bug", "fairy"], ["ghost"]);
+typeQuiz.addType("posion", ["grass", "fairy"], ["poison", "ground", "rock", "ghost"], ["steel"]);
+typeQuiz.addType("ground", ["fire", "electric", "poison", "rock", "steel"], ["grass", "bug"], ["flying"]);
+typeQuiz.addType("flying", ["grass", "fighting", "bug"], ["electric", "rock", "steel"], []);
+
 
 typeQuiz.findTypes("water", "fire");
+typeQuiz.findTypes("fire", "water");
