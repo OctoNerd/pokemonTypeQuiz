@@ -84,6 +84,15 @@ var view = {
                 w[i].checked = false;
             }
         }
+    },
+    submitPop: function() {
+        var submitBtn = document.getElementById("btn-submit");
+        submitBtn.addEventListener("mousedown", function() {
+            submitBtn.style.boxShadow = "none";
+        });
+        submitBtn.addEventListener("mouseup", function() {
+            submitBtn.style.boxShadow = "0px 2px 2px #333";
+        });
     }
 }
 
@@ -112,4 +121,4 @@ typeQuiz.addType("nothing", ["nothing"], ["nothing"], ["nothing"]);
 
 //typeQuiz.getQuestion();
 view.uncheckAllBtns();
-view.setUpEventListeners();
+view.submitPop();

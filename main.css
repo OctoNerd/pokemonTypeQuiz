@@ -35,6 +35,13 @@ body {
     text-align: center;
 }
 
+.submit-btn-wrap {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
 .btn-normal + label span {
     background: #a8a878;
     background-image: linear-gradient(#a8a878,#79794e);/*#8a8a59*/
