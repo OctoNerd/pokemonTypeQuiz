@@ -112,3 +112,4 @@ typeQuiz.addType("nothing", ["nothing"], ["nothing"], ["nothing"]);
 
 //typeQuiz.getQuestion();
 view.uncheckAllBtns();
+view.setUpEventListeners();

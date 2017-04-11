@@ -1,3 +1,10 @@
+body {
+    background-image: linear-gradient(135deg,rgba(162,219,150,1) 0%,rgba(36,204,170,1) 100%);
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
 .chkBtn {
     display: none;
 }
@@ -15,7 +22,7 @@
     padding-top: 15px;
     cursor: pointer;
     text-shadow: 1px 1px 1px #333;
-    box-shadow: 0px 2px 2px #555;
+    box-shadow: 0px 2px 2px #333;
 }
 .chkBtn:checked + label span {
     box-shadow: none;
@@ -25,6 +32,7 @@
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
 }
 
 .btn-normal + label span {
@@ -187,4 +195,32 @@
 }
 .btn-fairy:checked + label span{
     background-image: linear-gradient(#d547d5, #e898e8);
+}
+
+.btn-nothing + label span {
+    width: 120px;
+    background: #bbb;
+    background-image: linear-gradient(#bbb,#777);
+    border-color: #777;
+}
+.btn-nothing:checked + label span{
+    background-image: linear-gradient(#777, #bbb);
+}
+
+.btn-submit {
+    display: inline-block;
+    height: 35px;
+    width: 120px;
+    border-radius: 10px;
+    color: white;
+    background-image: linear-gradient(limegreen,green);
+    border: 3px solid darkgreen;
+    text-transform: uppercase;
+    text-align: center;
+    font-family: sans-serif;
+    margin: 10px;
+    padding-top: 15px;
+    cursor: pointer;
+    text-shadow: 1px 1px 1px #333;
+    box-shadow: 0px 2px 2px #333;
 }
