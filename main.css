@@ -4,6 +4,10 @@ body {
     background-position: top center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    font-family: sans-serif;
+}
+p {
+    font-size: 25px;
 }
 .chkBtn {
     display: none;
