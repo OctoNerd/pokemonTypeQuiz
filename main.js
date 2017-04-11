@@ -72,10 +72,19 @@ var typeQuiz = {
         }
         if(validType == false) {
             console.log("That is not a valid type");
-        }
-        
+        }   
     }
+}
 
+var view = {
+    uncheckAllBtns: function() {
+        var w = document.getElementsByTagName("input");
+        for(var i=0; i < w.length; i++) {
+            if(w[i].type == "checkbox") {
+                w[i].checked = false;
+            }
+        }
+    }
 }
 
 //name, strongAtk, weakAtk, nodmgAtk
@@ -102,3 +111,4 @@ typeQuiz.addType("nothing", ["nothing"], ["nothing"], ["nothing"]);
 
 
 //typeQuiz.getQuestion();
+view.uncheckAllBtns();
