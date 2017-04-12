@@ -6,8 +6,18 @@ body {
     background-attachment: fixed;
     font-family: sans-serif;
 }
-p {
+.question-wrap {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+.numerator, .numerator + span, .denominator, .denominator + span {
     font-size: 25px;
+}
+.numerator, .denominator {
+    display: inline-block;
+    margin-bottom: 25px;
 }
 .chkBtn {
     display: none;

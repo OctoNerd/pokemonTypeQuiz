@@ -8,19 +8,6 @@ var typeQuiz = {
             nodmgAtk: nodmgAtk,
         });
     },
-    findTypes: function(attackerType, defenderType) {
-        var attackerTypeObj, defenderTypeObj;
-        for(i=0; i<typeQuiz.types.length; i++) {
-            if(typeQuiz.types[i].typeName == attackerType){
-                attackerTypeObj = typeQuiz.types[i];
-            }
-            if (typeQuiz.types[i].typeName == defenderType){
-                defenderTypeObj = typeQuiz.types[i];
-            }
-        }
-        console.log("Attacker: " + attackerTypeObj.typeName + " | " + "Defender: " + defenderTypeObj.typeName);
-        this.checkAtk(attackerTypeObj, defenderTypeObj);
-    },
     checkGuesses: function(guessArray, randomTypeObj, questionNumber){
         var numberCorrect = 0;
         switch (questionNumber) {
@@ -52,7 +39,7 @@ var typeQuiz = {
                 }
                 break;
         }
-        console.log(numberCorrect);
+        alert("You got " + numberCorrect + " correct!");
     },
     getQuestion: function() {
         var randomType = Math.floor(Math.random() * (18));
