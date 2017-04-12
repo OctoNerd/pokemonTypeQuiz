@@ -21,51 +21,53 @@ var typeQuiz = {
         console.log("Attacker: " + attackerTypeObj.typeName + " | " + "Defender: " + defenderTypeObj.typeName);
         this.checkAtk(attackerTypeObj, defenderTypeObj);
     },
-    checkAtk: function(attackerType, defenderType, questionNumber) {
-        gotOneRight = false;
-        for(i=0; i<attackerType.strongAtk.length; i++){
-            if((attackerType.strongAtk[i] == defenderType.typeName)&&(questionNumber == 0)){
-                console.log("Correct! " + attackerType.typeName + " is super effective against " + defenderType.typeName);
-                gotOneRight = true;
-            }
+    checkGuesses: function(guessArray, randomTypeObj, questionNumber){
+        var numberCorrect = 0;
+        switch (questionNumber) {
+            case 0:
+                for(i=0; i<guessArray.length; i++) {
+                    for(j=0; j<randomTypeObj.strongAtk.length; j++) {
+                        if(randomTypeObj.strongAtk[j] == guessArray[i]) {
+                            numberCorrect++;
+                        }
+                    }
+                }
+                break;
+            case 1:
+                for(i=0; i<guessArray.length; i++) {
+                    for(j=0; j<randomTypeObj.weakAtk.length; j++) {
+                        if(randomTypeObj.weakAtk[j] == guessArray[i]) {
+                            numberCorrect++;
+                        }
+                    }
+                }
+                break;
+            default:
+                for(i=0; i<guessArray.length; i++) {
+                    for(j=0; j<randomTypeObj.nodmgAtk.length; j++) {
+                        if(randomTypeObj.nodmgAtk[j] == guessArray[i]) {
+                            numberCorrect++;
+                        }
+                    }
+                }
+                break;
         }
-        for(i=0; i<attackerType.weakAtk.length; i++) {
-            if((attackerType.weakAtk[i] == defenderType.typeName)&&(questionNumber == 1)){
-                console.log("Correct! " + attackerType.typeName + " is not very effective against " + defenderType.typeName);
-                gotOneRight = true;
-            }
-        }
-        for(i=0; i<attackerType.nodmgAtk.length; i++) {
-            if((attackerType.nodmgAtk[i] == defenderType.typeName)&&(questionNumber == 2)){
-                console.log("Correct! " + attackerType.typeName + " has no effect against " + defenderType.typeName);
-                gotOneRight = true;
-            }
-        }
-        if(gotOneRight == false) {
-            console.log("I'm sorry, that is incorrect");
-        }
+        console.log(numberCorrect);
     },
     getQuestion: function() {
         var randomType = Math.floor(Math.random() * (18));
-        var randomTypeObj = this.types[randomType];
-        var questionNumber = Math.floor(Math.random() * (3));
-
-        //var randomTypeName = randomTypeObj.typeName;
-        handlers.displayQuestion(questionNumber, randomTypeObj);
-
-
-        // for(j=0; j<this.types.length; j++){
-        //     if(this.types[j].typeName == guess) {
-        //         var guessObj = this.types[j];
-        //         this.checkAtk(randomTypeObj, guessObj, questionNumber);
-        //         validType = true;
-        //     }
-        // }
-    }
+        typeQuiz.randomTypeObj = this.types[randomType];
+        typeQuiz.questionNumber = Math.floor(Math.random() * (3));
+        handlers.displayQuestion();
+    },
+    questionNumber: 0,
+    randomTypeObj: {}
 }
 
 var handlers = {
-    displayQuestion: function(questionNumber, randomTypeObj) {
+    displayQuestion: function() {
+        var questionNumber = typeQuiz.questionNumber;
+        var randomTypeObj = typeQuiz.randomTypeObj;
         switch (questionNumber) {
             case 0:
                 var question = "What is " + randomTypeObj.typeName + " super effective against?";
@@ -82,6 +84,9 @@ var handlers = {
         }
         
         view.displayQuestion(question, totalAnswers);
+    },
+    checkGuesses: function(guesses) {
+        typeQuiz.checkGuesses(guesses, typeQuiz.randomTypeObj, typeQuiz.questionNumber);
     }
 }
 
@@ -132,7 +137,7 @@ var view = {
                 guesses.push(x[i].id);
             }
         }
-        console.log(guesses);
+        handlers.checkGuesses(guesses);
     },
     updateNumerator: function() {
         var numerator = document.querySelector(".numerator");
