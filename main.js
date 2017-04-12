@@ -86,6 +86,16 @@ var handlers = {
 }
 
 var view = {
+    setUpEventListeners: function() {
+        document.querySelector(".btn-wrap").addEventListener('click', function(event){
+            var elementClicked = event.target;
+            if(elementClicked.checked == true){
+                view.updateNumerator();
+            } else if(elementClicked.checked == false){
+                view.updateNumerator();
+            }
+        });
+    },
     uncheckAllBtns: function() {
         var w = document.getElementsByTagName("input");
         for(var i=0; i < w.length; i++) {
@@ -102,6 +112,9 @@ var view = {
         submitBtn.addEventListener("mouseup", function() {
             submitBtn.style.boxShadow = "0px 2px 2px #333";
         });
+        submitBtn.addEventListener("click", function() {
+            view.readInputs();
+        })
     },
     displayQuestion: function(question, totalAnswers) {
         var questionElement = document.getElementById("question");
@@ -109,6 +122,28 @@ var view = {
 
         var numOfAnswersElement = document.querySelector(".denominator");
         numOfAnswersElement.innerHTML = totalAnswers;
+    },
+    readInputs: function() {
+        var x = document.getElementsByTagName("input");
+
+        var guesses = [];
+        for(var i=0; i<x.length; i++) {
+            if(x[i].checked == true) {
+                guesses.push(x[i].id);
+            }
+        }
+        console.log(guesses);
+    },
+    updateNumerator: function() {
+        var numerator = document.querySelector(".numerator");
+        var types = document.getElementsByTagName("input");
+        var numberOfCheckedTypes = 0;
+        for(var i=0; i<types.length; i++) {
+            if(types[i].checked == true) {
+                numberOfCheckedTypes++;
+            }
+        }
+        numerator.innerHTML = numberOfCheckedTypes;
     }
 }
 
@@ -138,3 +173,4 @@ typeQuiz.addType("nothing", ["nothing"], ["nothing"], ["nothing"]);
 typeQuiz.getQuestion();
 view.uncheckAllBtns();
 view.submitPop();
+view.setUpEventListeners();
