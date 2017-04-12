@@ -49,21 +49,10 @@ var typeQuiz = {
         var randomType = Math.floor(Math.random() * (18));
         var randomTypeObj = this.types[randomType];
         var questionNumber = Math.floor(Math.random() * (3));
-        var validType = false;
 
-        var randomTypeName = randomTypeObj.typeName;
-        handlers.displayQuestion(questionNumber, randomTypeName);        
-        // switch(questionNumber) {
-        //     case 0: 
-        //         var guess = prompt("What is " + randomTypeObj.typeName + " super effective against?");
-        //         break;
-        //     case 1:
-        //         var guess = prompt("What is " + randomTypeObj.typeName + " not very effective against?");
-        //         break;
-        //     default:
-        //         var guess = prompt("What is " + randomTypeObj.typeName + " not effective at all against?");
-        //         break;
-        // }
+        //var randomTypeName = randomTypeObj.typeName;
+        handlers.displayQuestion(questionNumber, randomTypeObj);
+
 
         // for(j=0; j<this.types.length; j++){
         //     if(this.types[j].typeName == guess) {
@@ -72,26 +61,27 @@ var typeQuiz = {
         //         validType = true;
         //     }
         // }
-        // if(validType == false) {
-        //     console.log("That is not a valid type");
-        // }   
     }
 }
 
 var handlers = {
-    displayQuestion: function(questionNumber, randomTypeName) {
+    displayQuestion: function(questionNumber, randomTypeObj) {
         switch (questionNumber) {
             case 0:
-                var question = "What is " + randomTypeName + " super effective against?";
+                var question = "What is " + randomTypeObj.typeName + " super effective against?";
+                var totalAnswers = randomTypeObj.strongAtk.length;
                 break;
             case 1:
-                var question = "What is " + randomTypeName + " not very effective against?";
+                var question = "What is " + randomTypeObj.typeName + " not very effective against?";
+                var totalAnswers = randomTypeObj.weakAtk.length;
                 break;
             default:
-                var question = "What is " + randomTypeName + " not effective at all against?";
+                var question = "What is " + randomTypeObj.typeName + " not effective at all against?";
+                var totalAnswers = randomTypeObj.nodmgAtk.length;
                 break;
         }
-        view.displayQuestion(question);
+        
+        view.displayQuestion(question, totalAnswers);
     }
 }
 
@@ -113,9 +103,12 @@ var view = {
             submitBtn.style.boxShadow = "0px 2px 2px #333";
         });
     },
-    displayQuestion: function(question) {
+    displayQuestion: function(question, totalAnswers) {
         var questionElement = document.getElementById("question");
         questionElement.innerHTML = question;
+
+        var numOfAnswersElement = document.querySelector(".denominator");
+        numOfAnswersElement.innerHTML = totalAnswers;
     }
 }
 
