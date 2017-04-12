@@ -92,13 +92,13 @@ var handlers = {
 
 var view = {
     setUpEventListeners: function() {
-        document.querySelector(".btn-wrap").addEventListener('click', function(event){
+        document.querySelector(".btn-wrap").addEventListener("click", function(event){
             var elementClicked = event.target;
-            if(elementClicked.checked == true){
-                view.updateNumerator();
-            } else if(elementClicked.checked == false){
+            if(elementClicked.type == "checkbox"){
+                view.checkTotalChecked(elementClicked);
                 view.updateNumerator();
             }
+            
         });
     },
     uncheckAllBtns: function() {
@@ -127,6 +127,7 @@ var view = {
 
         var numOfAnswersElement = document.querySelector(".denominator");
         numOfAnswersElement.innerHTML = totalAnswers;
+        view.totalAnswers = totalAnswers;
     },
     readInputs: function() {
         var x = document.getElementsByTagName("input");
@@ -142,14 +143,24 @@ var view = {
     updateNumerator: function() {
         var numerator = document.querySelector(".numerator");
         var types = document.getElementsByTagName("input");
-        var numberOfCheckedTypes = 0;
+        view.numberOfCheckedTypes = 0;
         for(var i=0; i<types.length; i++) {
             if(types[i].checked == true) {
-                numberOfCheckedTypes++;
+                view.numberOfCheckedTypes++;
             }
         }
-        numerator.innerHTML = numberOfCheckedTypes;
-    }
+        view.checkTotalChecked
+        numerator.innerHTML = view.numberOfCheckedTypes;
+    },
+    checkTotalChecked: function(elementClicked) {
+         if(view.numberOfCheckedTypes == view.totalAnswers) {
+            elementClicked.checked = false;
+        } else {
+            view.updateNumerator();
+        }
+    },
+    numberOfCheckedTypes: 0,
+    totalAnswers: 0
 }
 
 //name, strongAtk, weakAtk, nodmgAtk
