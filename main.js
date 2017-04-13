@@ -40,15 +40,27 @@ var typeQuiz = {
                 break;
         }
         alert("You got " + numberCorrect + " correct!");
+        typeQuiz.points += numberCorrect * 10;
+        console.log("Total points: " + typeQuiz.points);
+        if(typeQuiz.turnNumber < 10) {
+            typeQuiz.getQuestion();
+            typeQuiz.turnNumber +=1;
+        } else {
+            alert("your score: " + typeQuiz.points);
+        }
+        
     },
     getQuestion: function() {
         var randomType = Math.floor(Math.random() * (18));
         typeQuiz.randomTypeObj = this.types[randomType];
         typeQuiz.questionNumber = Math.floor(Math.random() * (3));
         handlers.displayQuestion();
+        handlers.nextQuestion();
     },
     questionNumber: 0,
-    randomTypeObj: {}
+    randomTypeObj: {},
+    turnNumber: 1,
+    points: 0
 }
 
 var handlers = {
@@ -74,6 +86,11 @@ var handlers = {
     },
     checkGuesses: function(guesses) {
         typeQuiz.checkGuesses(guesses, typeQuiz.randomTypeObj, typeQuiz.questionNumber);
+    },
+    nextQuestion: function() {
+        view.uncheckAllBtns();
+        view.numberOfCheckedTypes = 0;
+        view.updateNumerator();
     }
 }
 
