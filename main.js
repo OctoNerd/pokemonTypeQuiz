@@ -10,10 +10,12 @@ var typeQuiz = {
     },
     checkGuesses: function(guessArray, randomTypeObj, questionNumber){
         var numberCorrect = 0;
+        var numOfAnswers = 0;
         switch (questionNumber) {
             case 0:
+                numOfAnswers = randomTypeObj.strongAtk.length;
                 for(i=0; i<guessArray.length; i++) {
-                    for(j=0; j<randomTypeObj.strongAtk.length; j++) {
+                    for(j=0; j<numOfAnswers; j++) {
                         if(randomTypeObj.strongAtk[j] == guessArray[i]) {
                             numberCorrect++;
                         }
@@ -21,8 +23,9 @@ var typeQuiz = {
                 }
                 break;
             case 1:
+                numOfAnswers = randomTypeObj.weakAtk.length;
                 for(i=0; i<guessArray.length; i++) {
-                    for(j=0; j<randomTypeObj.weakAtk.length; j++) {
+                    for(j=0; j<numOfAnswers; j++) {
                         if(randomTypeObj.weakAtk[j] == guessArray[i]) {
                             numberCorrect++;
                         }
@@ -30,8 +33,9 @@ var typeQuiz = {
                 }
                 break;
             default:
+                numOfAnswers = randomTypeObj.nodmgAtk.length;
                 for(i=0; i<guessArray.length; i++) {
-                    for(j=0; j<randomTypeObj.nodmgAtk.length; j++) {
+                    for(j=0; j<numOfAnswers; j++) {
                         if(randomTypeObj.nodmgAtk[j] == guessArray[i]) {
                             numberCorrect++;
                         }
@@ -40,8 +44,7 @@ var typeQuiz = {
                 break;
         }
         alert("You got " + numberCorrect + " correct!");
-        typeQuiz.score += numberCorrect * 10;
-        console.log("Total score: " + typeQuiz.score);
+        typeQuiz.calculateScore(numberCorrect, numOfAnswers);
         if(typeQuiz.turnNumber < 10) {
             typeQuiz.getQuestion();
             typeQuiz.turnNumber +=1;
@@ -55,6 +58,9 @@ var typeQuiz = {
         typeQuiz.questionNumber = Math.floor(Math.random() * (3));
         handlers.displayQuestion();
         handlers.nextQuestion();
+    },
+    calculateScore: function(numberCorrect, numOfAnswers) {
+        typeQuiz.score += Math.floor((numberCorrect/numOfAnswers) * 100);
     },
     questionNumber: 0,
     randomTypeObj: {},
