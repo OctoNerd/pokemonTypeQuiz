@@ -40,14 +40,13 @@ var typeQuiz = {
                 break;
         }
         alert("You got " + numberCorrect + " correct!");
-        typeQuiz.points += numberCorrect * 10;
-        console.log("Total points: " + typeQuiz.points);
+        typeQuiz.score += numberCorrect * 10;
+        console.log("Total score: " + typeQuiz.score);
         if(typeQuiz.turnNumber < 10) {
             typeQuiz.getQuestion();
             typeQuiz.turnNumber +=1;
-        } else {
-            alert("your score: " + typeQuiz.points);
-        }
+        } 
+        handlers.updateTurnAndScore();
         
     },
     getQuestion: function() {
@@ -60,7 +59,7 @@ var typeQuiz = {
     questionNumber: 0,
     randomTypeObj: {},
     turnNumber: 1,
-    points: 0
+    score: 0
 }
 
 var handlers = {
@@ -91,6 +90,11 @@ var handlers = {
         view.uncheckAllBtns();
         view.numberOfCheckedTypes = 0;
         view.updateNumerator();
+    },
+    updateTurnAndScore: function() {
+        var turnNumber = typeQuiz.turnNumber;
+        var score = typeQuiz.score;
+        view.updateTurnAndScore(turnNumber, score);
     }
 }
 
@@ -162,6 +166,12 @@ var view = {
         } else {
             view.updateNumerator();
         }
+    },
+    updateTurnAndScore: function(turnNumber, score){
+        var turnElement = document.querySelector(".turnNumber");
+        var scoreElement = document.querySelector(".score");
+        turnElement.innerHTML = turnNumber;
+        scoreElement.innerHTML = score;
     },
     numberOfCheckedTypes: 0,
     totalAnswers: 0
